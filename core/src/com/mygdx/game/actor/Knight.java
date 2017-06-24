@@ -16,7 +16,7 @@ public class Knight extends Actor {
     public Knight() {
         listener = new KnightEventListener();
         sprite = new Sprite(new Texture(Gdx.files.internal("actor/knight.png")));
-        setBounds(sprite.getX(), sprite.getY(), 32, 32);
+        setBounds(0, 0, 32, 32);
         setTouchable(Touchable.enabled);
         addListener(listener);
     }

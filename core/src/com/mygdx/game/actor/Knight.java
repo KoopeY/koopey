@@ -6,16 +6,21 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.listener.KnightEventListener;
 
 public class Knight extends Actor {
-    private Sprite sprite;
-    private ClickListener listener;
+    private Sprite currentSprite;
+    private Sprite activeSprite;
+    private Sprite inactiveSprite;
+    private KnightEventListener listener;
+    private boolean isActive = false;
 
     public Knight() {
         listener = new KnightEventListener();
-        sprite = new Sprite(new Texture(Gdx.files.internal("actor/knight.png")));
+        inactiveSprite = new Sprite(new Texture(Gdx.files.internal("actor/knight.png")));
+        activeSprite = new Sprite(new Texture(Gdx.files.internal("actor/knight2.png")));
+        setWidth(32);
+        setHeight(32);
         setBounds(0, 0, 32, 32);
         setTouchable(Touchable.enabled);
         addListener(listener);
@@ -24,7 +29,15 @@ public class Knight extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         //sprite.draw(batch);
-        batch.draw(sprite, 0, 0, 32, 32);
+        isActive = listener.isClicked();
+
+        if (isActive) {
+            currentSprite = activeSprite;
+        } else {
+            currentSprite = inactiveSprite;
+        }
+
+        batch.draw(currentSprite, 0, 0, 32, 32);
     }
 
     @Override

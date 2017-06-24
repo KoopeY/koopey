@@ -1,5 +1,6 @@
 package com.mygdx.game.stage;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.actor.Knight;
@@ -12,6 +13,7 @@ public class GameStage {
         Knight knight = new Knight();
         knight.setPosition(0, 0);
         stage.addActor(knight);
+        Gdx.input.setInputProcessor(stage);
     }
 
     public void resize (int width, int height) {

@@ -11,7 +11,7 @@ public class GameStage {
     public GameStage(FitViewport fitViewport) {
         stage = new Stage(fitViewport);
         Knight knight = new Knight();
-        knight.setPosition(0, 0);
+        //knight.setPosition(0, 0);
         stage.addActor(knight);
         Gdx.input.setInputProcessor(stage);
     }

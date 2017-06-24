@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.mygdx.game.listener.InputListener;
 
 public class GameClass extends ApplicationAdapter {
 	private TiledMap tiledMap;
@@ -16,6 +17,7 @@ public class GameClass extends ApplicationAdapter {
     private OrthographicCamera camera;
 
     private String mapPath = "map/map.tmx";
+    private InputListener inputListener;
 
     //Camera settings
     private final float MAX_CAMERA_ZOOM = 1.2f;
@@ -32,10 +34,12 @@ public class GameClass extends ApplicationAdapter {
 
 		tiledMap = new TmxMapLoader().load(mapPath);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        inputListener = new InputListener(this);
 	}
 
 	@Override
 	public void render () {
+        handleInput();
 		Gdx.gl.glClearColor(1, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
@@ -72,11 +76,8 @@ public class GameClass extends ApplicationAdapter {
     }
 
 	private void handleInput() {
+        inputListener.keyPressed();
 
-
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-
-        }
         Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
         Gdx.app.log("camera zoom", String.valueOf(camera.zoom));
         //Gdx.app.log("Camera", camera.position.x + " " + camera.position.y);

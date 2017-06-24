@@ -9,7 +9,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.listener.InputListener;
+import com.mygdx.game.stage.GameStage;
 
 public class GameClass extends ApplicationAdapter {
 	private TiledMap tiledMap;
@@ -23,6 +25,9 @@ public class GameClass extends ApplicationAdapter {
     private final float MAX_CAMERA_ZOOM = 1.2f;
     private final float MIN_CAMERA_ZOOM = 0.8f;
 
+    //Stage
+    GameStage gameStage;
+
 	@Override
 	public void create () {
         float w = Gdx.graphics.getWidth();
@@ -35,6 +40,8 @@ public class GameClass extends ApplicationAdapter {
 		tiledMap = new TmxMapLoader().load(mapPath);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         inputListener = new InputListener(this);
+        FitViewport viewp = new FitViewport(w, h, camera);
+        gameStage = new GameStage(viewp);
 	}
 
 	@Override
@@ -45,6 +52,7 @@ public class GameClass extends ApplicationAdapter {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+        gameStage.render();
 	}
 
 	public void increaseZoom() {
@@ -78,8 +86,8 @@ public class GameClass extends ApplicationAdapter {
 	private void handleInput() {
         inputListener.keyPressed();
 
-        Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
-        Gdx.app.log("camera zoom", String.valueOf(camera.zoom));
+        //Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
+        //Gdx.app.log("camera zoom", String.valueOf(camera.zoom));
         //Gdx.app.log("Camera", camera.position.x + " " + camera.position.y);
     }
 	

@@ -1,6 +1,7 @@
 package com.mygdx.game.figure;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.GameClass;
 
 import java.awt.*;
 
@@ -59,7 +60,8 @@ public class PolygonMoveArea {
         MovableAreaVertex[][] points = getVertices(position);
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < points[0].length; j++) {
-                if (points[i][j].isMovable()) {
+                if (points[i][j].isMovable() && GameClass.getTiledMapTileLayer().getCell(5 - i, 5 - j) != null) {
+
                     shapeRenderer.rect(
                             points[i][j].getPoint().x,
                             points[i][j].getPoint().y,

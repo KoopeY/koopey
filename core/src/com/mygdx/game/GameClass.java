@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -27,7 +28,10 @@ public class GameClass extends ApplicationAdapter {
     private final float MIN_CAMERA_ZOOM = 0.8f;
 
     //Stage
-    GameStage gameStage;
+    private GameStage gameStage;
+
+    //tiled map
+    private static TiledMapTileLayer tiledMapTileLayer;
 
 	@Override
 	public void create () {
@@ -39,6 +43,7 @@ public class GameClass extends ApplicationAdapter {
         camera.update();
 
 		tiledMap = new TmxMapLoader().load(mapPath);
+        tiledMapTileLayer = ((TiledMapTileLayer) tiledMap.getLayers().get("steps"));
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         inputListener = new InputListener(this);
         FitViewport viewp = new FitViewport(w, h, camera);
@@ -96,4 +101,8 @@ public class GameClass extends ApplicationAdapter {
 	public void dispose () {
 		tiledMap.dispose();
 	}
+
+	public static TiledMapTileLayer getTiledMapTileLayer() {
+	    return tiledMapTileLayer;
+    }
 }

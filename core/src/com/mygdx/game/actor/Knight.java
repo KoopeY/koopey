@@ -20,13 +20,13 @@ public class Knight extends Actor {
     private PolygonSpriteBatch polygonSpriteBatch;
 
     //settings
-    int moveTiles = 4;
+    int moveTiles = 2;
     Point position;
     int size = 32;
     PolygonMoveArea moveArea;
 
     public Knight() {
-        position = new Point(32 * 10, 32 * 10);
+        position = new Point(32 * 5, 32 * 5);
         listener = new KnightEventListener();
         inactiveSprite = new Sprite(new Texture(Gdx.files.internal("actor/knight.png")));
         activeSprite = new Sprite(new Texture(Gdx.files.internal("actor/knight2.png")));

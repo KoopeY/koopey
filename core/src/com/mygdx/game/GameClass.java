@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.listener.InputListener;
 import com.mygdx.game.stage.GameStage;
@@ -45,6 +46,7 @@ public class GameClass extends ApplicationAdapter {
         camera.update();
 
 		tiledMap = new TmxMapLoader().load(mapPath);
+        tiledMap.getLayers().get("steps").setVisible(true);
         tiledMapTileLayer = ((TiledMapTileLayer) tiledMap.getLayers().get("steps"));
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         inputListener = new InputListener(this);
@@ -109,7 +111,7 @@ public class GameClass extends ApplicationAdapter {
 
 	private void handleInput() {
         inputListener.keyPressed();
-        Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
+        //Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
     }
 	
 	@Override

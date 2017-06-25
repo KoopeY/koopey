@@ -17,7 +17,8 @@ public class MovableArea extends Actor {
     private Point position;
     private int size;
 
-    public MovableArea(final int i, final int  j, final Point position, final int size) {
+    public MovableArea(final Point position, final int size) {
+        System.out.println("create MovableArea " + position);
         this.position = position;
         this.size = size;
 
@@ -28,7 +29,6 @@ public class MovableArea extends Actor {
         setTouchable(Touchable.enabled);
         addListener(new ClickListener() {
             @Override public void clicked(InputEvent event, float x, float y) {
-                //Gdx.app.log("button", "clicked " + i + " " + j);
                 Actor activeActor = GameStage.getActiveActor();
                 if (activeActor != null) {
                     activeActor.setBounds(position.x, position.y, size, size);
@@ -40,6 +40,8 @@ public class MovableArea extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        System.out.println(position);
         batch.draw(
                 movableAreaSprite,
                 position.x,

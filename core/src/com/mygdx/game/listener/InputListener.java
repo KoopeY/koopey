@@ -30,5 +30,13 @@ public class InputListener {
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             game.moveCameraDown();
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            game.increaseZoom();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            game.decreaseZoom();
+        }
     }
 }

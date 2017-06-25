@@ -38,6 +38,8 @@ public class GameClass extends ApplicationAdapter {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
+        System.out.println(Gdx.graphics.getWidth() + "x" + Gdx.graphics.getHeight());
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();
@@ -64,37 +66,50 @@ public class GameClass extends ApplicationAdapter {
 	public void increaseZoom() {
         if (camera.zoom <= MAX_CAMERA_ZOOM) {
             camera.zoom += 0.02;
+            boundCamera();
         }
     }
 
     public void decreaseZoom() {
         if (camera.zoom >= MIN_CAMERA_ZOOM) {
             camera.zoom -= 0.02;
+            boundCamera();
         }
     }
 
     public void moveCameraLeft() {
         camera.translate(-3, 0, 0);
+        boundCamera();
     }
 
     public void moveCameraRight() {
         camera.translate(3, 0, 0);
+        boundCamera();
     }
 
     public void moveCameraUp() {
         camera.translate(0, 3, 0);
+        boundCamera();
     }
 
     public void moveCameraDown() {
         camera.translate(0, -3, 0);
+        boundCamera();
+    }
+
+    private void boundCamera() {
+        camera.zoom = MathUtils.clamp(camera.zoom, MIN_CAMERA_ZOOM, MAX_CAMERA_ZOOM);
+
+        float effectiveViewportWidth = camera.viewportWidth * camera.zoom;
+        float effectiveViewportHeight = camera.viewportHeight * camera.zoom;
+
+        camera.position.x = MathUtils.clamp(camera.position.x, effectiveViewportWidth / 2f, 800 - effectiveViewportWidth / 2f);
+        camera.position.y = MathUtils.clamp(camera.position.y, effectiveViewportHeight / 2f, 800 - effectiveViewportHeight / 2f);
     }
 
 	private void handleInput() {
         inputListener.keyPressed();
-
-        //Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
-        //Gdx.app.log("camera zoom", String.valueOf(camera.zoom));
-        //Gdx.app.log("Camera", camera.position.x + " " + camera.position.y);
+        Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
     }
 	
 	@Override

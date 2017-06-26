@@ -1,13 +1,11 @@
 package com.mygdx.game.actor.group;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.GameClass;
 import com.mygdx.game.actor.MovableArea;
 import com.mygdx.game.figure.MovableAreaVertex;
+import com.mygdx.game.figure.Point;
 import com.mygdx.game.figure.PolygonMoveArea;
-
-import java.awt.*;
 
 public class MovableAreaGroup extends Table {
 
@@ -31,13 +29,13 @@ public class MovableAreaGroup extends Table {
                 if (movableArea[i][j].isMovable()
                         && GameClass.getTiledMapTileLayer()
                                 .getCell(
-                                        movableArea[(int)Math.floor(movableArea.length / 2)][(int)Math.floor(movableArea.length / 2)].getPoint().x / size - moveTiles + i,
-                                        movableArea[(int)Math.floor(movableArea.length / 2)][(int)Math.floor(movableArea.length / 2)].getPoint().y / size - moveTiles + j) != null
+                                        movableArea[(int)Math.floor(movableArea.length / 2)][(int)Math.floor(movableArea.length / 2)].getPoint().getX() / size - moveTiles + i,
+                                        movableArea[(int)Math.floor(movableArea.length / 2)][(int)Math.floor(movableArea.length / 2)].getPoint().getY() / size - moveTiles + j) != null
                         ) {
 
                     this.addActor(new MovableArea(
-                            new Point(movableArea[i][j].getPoint().x
-                                    , movableArea[i][j].getPoint().y)
+                            new Point(movableArea[i][j].getPoint().getX()
+                                    , movableArea[i][j].getPoint().getY())
                             , size)
                     );
                 }

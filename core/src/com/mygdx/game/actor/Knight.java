@@ -1,22 +1,13 @@
 package com.mygdx.game.actor;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.mygdx.game.GameClass;
-import com.mygdx.game.actor.group.MovableAreaGroup;
-import com.mygdx.game.figure.MovableAreaVertex;
-import com.mygdx.game.figure.PolygonMoveArea;
+import com.mygdx.game.figure.Point;
 import com.mygdx.game.listener.KnightEventListener;
 import com.mygdx.game.stage.GameStage;
-
-import java.awt.*;
 
 public class Knight extends Actor {
     private Sprite currentSprite;
@@ -27,9 +18,9 @@ public class Knight extends Actor {
     private boolean isActive = false;
 
     //settings
-    int moveTiles = 3;
-    Point position;
-    int size = 16;
+    private int moveTiles = 3;
+    private Point position;
+    private int size = 16;
 
     public Knight(int x, int y) {
         position = new Point(size * x, size * y);
@@ -39,7 +30,7 @@ public class Knight extends Actor {
 
         setWidth(size);
         setHeight(size);
-        setBounds(position.x, position.y, size, size);
+        setBounds(position.getX(), position.getY(), size, size);
         setTouchable(Touchable.enabled);
         addListener(listener);
     }
@@ -58,7 +49,7 @@ public class Knight extends Actor {
             currentSprite = inactiveSprite;
         }
 
-        batch.draw(currentSprite, position.x, position.y, size, size);
+        batch.draw(currentSprite, position.getX(), position.getY(), size, size);
     }
 
     @Override

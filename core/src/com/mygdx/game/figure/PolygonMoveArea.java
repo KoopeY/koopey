@@ -1,7 +1,5 @@
 package com.mygdx.game.figure;
 
-import java.awt.*;
-
 public class PolygonMoveArea {
     private int spriteSize;
     private int moveTiles;
@@ -15,8 +13,8 @@ public class PolygonMoveArea {
         MovableAreaVertex[][] rectanglesPoints = new MovableAreaVertex[moveTiles * 2 + 1][moveTiles * 2 + 1];
 
         Point leftTopPoint = new Point(
-                point.x - moveTiles * spriteSize,
-                point.y - moveTiles * spriteSize
+                point.getX() - moveTiles * spriteSize,
+                point.getY() - moveTiles * spriteSize
         );
 
         for (int i = 0; i < moveTiles * 2 + 1; i++) {
@@ -41,8 +39,8 @@ public class PolygonMoveArea {
 
                 rectanglesPoints[i][j] = new MovableAreaVertex(
                     new Point(
-                        leftTopPoint.x + i * spriteSize,
-                        leftTopPoint.y + j * spriteSize
+                        leftTopPoint.getX() + i * spriteSize,
+                        leftTopPoint.getY() + j * spriteSize
                     ),
                     isMovable
                 );

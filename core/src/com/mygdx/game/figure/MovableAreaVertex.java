@@ -1,7 +1,5 @@
 package com.mygdx.game.figure;
 
-import java.awt.*;
-
 public class MovableAreaVertex {
     private Point point;
     private boolean isMovable = false;

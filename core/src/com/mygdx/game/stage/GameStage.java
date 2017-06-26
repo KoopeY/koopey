@@ -6,8 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.actor.Knight;
 import com.mygdx.game.actor.group.MovableAreaGroup;
-
-import java.awt.*;
+import com.mygdx.game.figure.Point;
 
 public class GameStage {
     private Stage stage;

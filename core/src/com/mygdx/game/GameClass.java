@@ -31,13 +31,17 @@ public class GameClass extends ApplicationAdapter {
     //Stage
     private GameStage gameStage;
 
+    //world
+    private int worldWidth = 800;
+    private int worldHeight = 800;
+
     //tiled map
     private static TiledMapTileLayer tiledMapTileLayer;
 
 	@Override
 	public void create () {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = Gdx.graphics.getWidth() / 3;
+        float h = Gdx.graphics.getHeight() / 3;
 
         System.out.println(Gdx.graphics.getWidth() + "x" + Gdx.graphics.getHeight());
 
@@ -46,7 +50,6 @@ public class GameClass extends ApplicationAdapter {
         camera.update();
 
 		tiledMap = new TmxMapLoader().load(mapPath);
-        tiledMap.getLayers().get("steps").setVisible(true);
         tiledMapTileLayer = ((TiledMapTileLayer) tiledMap.getLayers().get("steps"));
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         inputListener = new InputListener(this);
@@ -111,7 +114,7 @@ public class GameClass extends ApplicationAdapter {
 
 	private void handleInput() {
         inputListener.keyPressed();
-        //Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
+        Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
     }
 	
 	@Override

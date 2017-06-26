@@ -25,8 +25,8 @@ public class Knight extends Actor {
     public Knight(int x, int y) {
         position = new Point(size * x, size * y);
         listener = new KnightEventListener();
-        inactiveSprite = new Sprite(new Texture(Gdx.files.internal("actor/knight.png")));
-        activeSprite = new Sprite(new Texture(Gdx.files.internal("actor/knight2.png")));
+        inactiveSprite = new Sprite(new Texture(Gdx.files.internal("actor/Knight.png")));
+        activeSprite = new Sprite(new Texture(Gdx.files.internal("actor/Knight2.png")));
 
         setWidth(size);
         setHeight(size);

@@ -1,9 +1,6 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -54,7 +51,7 @@ public class GameClass extends ApplicationAdapter {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         inputListener = new InputListener(this);
         FitViewport viewp = new FitViewport(w, h, camera);
-        gameStage = new GameStage(viewp);
+        gameStage = new GameStage(viewp, this);
 	}
 
 	@Override
@@ -102,19 +99,29 @@ public class GameClass extends ApplicationAdapter {
         boundCamera();
     }
 
+    public void setCameraPosition(float x, float y) {
+        camera.translate(x, y, 0);
+        boundCamera();
+    }
+
+    public void changeCameraPosition(float deltaX, float deltaY) {
+        camera.translate(deltaX, deltaY, 0);
+        boundCamera();
+    }
+
     private void boundCamera() {
         camera.zoom = MathUtils.clamp(camera.zoom, MIN_CAMERA_ZOOM, MAX_CAMERA_ZOOM);
 
         float effectiveViewportWidth = camera.viewportWidth * camera.zoom;
         float effectiveViewportHeight = camera.viewportHeight * camera.zoom;
 
-        camera.position.x = MathUtils.clamp(camera.position.x, effectiveViewportWidth / 2f, 800 - effectiveViewportWidth / 2f);
-        camera.position.y = MathUtils.clamp(camera.position.y, effectiveViewportHeight / 2f, 800 - effectiveViewportHeight / 2f);
+        camera.position.x = MathUtils.clamp(camera.position.x, effectiveViewportWidth / 2f, worldWidth - effectiveViewportWidth / 2f);
+        camera.position.y = MathUtils.clamp(camera.position.y, effectiveViewportHeight / 2f, worldHeight - effectiveViewportHeight / 2f);
     }
 
 	private void handleInput() {
         inputListener.keyPressed();
-        Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
+        //Gdx.app.log("fps", String.valueOf(Gdx.graphics.getFramesPerSecond()));
     }
 	
 	@Override

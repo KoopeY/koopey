@@ -3,13 +3,15 @@ package com.mygdx.game.listener;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.actor.Knight;
 import com.mygdx.game.stage.GameStage;
 
 public class KnightEventListener extends ClickListener {
-    boolean isClicked = false;
 
-    public boolean isClicked() {
-        return isClicked;
+    Knight knight;
+
+    public KnightEventListener(Knight knight) {
+        this.knight = knight;
     }
 
     @Override
@@ -25,8 +27,10 @@ public class KnightEventListener extends ClickListener {
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
-        isClicked = isClicked ? false : true;
-        if (!isClicked) {
+        boolean active = knight.getActive();
+        GameStage.setInactiveAllUnits();
+        knight.setActive(!active);
+        if (!knight.getActive()) {
             GameStage.removeMovableArea();
         }
     }

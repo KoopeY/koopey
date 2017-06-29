@@ -13,7 +13,6 @@ public class MovableAreaGroup extends Table {
     private MovableAreaVertex[][] movableArea;
 
     public MovableAreaGroup() {
-
     }
 
     public void clearMovableArea() {

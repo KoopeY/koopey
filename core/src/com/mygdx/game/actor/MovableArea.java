@@ -17,7 +17,6 @@ public class MovableArea extends Actor {
     private int size;
 
     public MovableArea(final Point position, final int size) {
-        System.out.println("create MovableArea " + position);
         this.position = position;
         this.size = size;
 
@@ -40,7 +39,7 @@ public class MovableArea extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        System.out.println(position);
+
         batch.draw(
                 movableAreaSprite,
                 position.getX(),

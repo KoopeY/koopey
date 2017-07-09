@@ -3,66 +3,64 @@ package com.mygdx.game;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.listener.InputListener;
-import com.mygdx.game.stage.GameStage;
+import com.mygdx.game.player.Player;
+import com.mygdx.game.screen.GameScreen;
+import com.mygdx.game.screen.MenuScreen;
 
-public class GameClass extends ApplicationAdapter {
-	private TiledMap tiledMap;
-    private TiledMapRenderer tiledMapRenderer;
-    private OrthographicCamera camera;
+public class GameClass extends Game {
 
-    private String mapPath = "map/map.tmx";
     private InputListener inputListener;
 
+    private OrthographicCamera camera;
     //Camera settings
     private final float MAX_CAMERA_ZOOM = 1.2f;
     private final float MIN_CAMERA_ZOOM = 0.8f;
-
-    //Stage
-    private GameStage gameStage;
 
     //world
     private int worldWidth = 800;
     private int worldHeight = 800;
 
-    //tiled map
-    private static TiledMapTileLayer tiledMapTileLayer;
+    private static Player currentPlayer;
+
+    //screens
+    private Screen currentScreen;
+    private MenuScreen menuScreen;
+    private GameScreen gameScreen;
+
+    //batch
+    private Batch batch;
 
 	@Override
-	public void create () {
-        float w = Gdx.graphics.getWidth() / 3;
-        float h = Gdx.graphics.getHeight() / 3;
-
-        System.out.println(Gdx.graphics.getWidth() + "x" + Gdx.graphics.getHeight());
+	public void create() {
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, w, h);
         camera.update();
-
-		tiledMap = new TmxMapLoader().load(mapPath);
-        tiledMapTileLayer = ((TiledMapTileLayer) tiledMap.getLayers().get("steps"));
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         inputListener = new InputListener(this);
-        FitViewport viewp = new FitViewport(w, h, camera);
-        gameStage = new GameStage(viewp, this);
+        gameScreen = new GameScreen(camera, this, w, h);
+        menuScreen = new MenuScreen(this, w, h);
+        currentScreen = gameScreen;
+        this.setScreen(currentScreen);
+        batch = new SpriteBatch();
 	}
 
+	public Batch getBatch() {
+	    return batch;
+    }
+
 	@Override
-	public void render () {
+	public void render() {
+	    super.render();
         handleInput();
-		Gdx.gl.glClearColor(1, 0, 0, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//Gdx.gl.glClearColor(1, 0, 0, 0);
+		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
-        gameStage.render();
 	}
 
 	public void increaseZoom() {
@@ -126,10 +124,13 @@ public class GameClass extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		tiledMap.dispose();
 	}
 
-	public static TiledMapTileLayer getTiledMapTileLayer() {
-	    return tiledMapTileLayer;
+    public static Player getCurrentPlayer() {
+	    if (currentPlayer == null) {
+	        currentPlayer = new Player();
+        }
+
+        return currentPlayer;
     }
 }

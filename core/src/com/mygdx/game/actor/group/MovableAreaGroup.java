@@ -1,11 +1,11 @@
 package com.mygdx.game.actor.group;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.game.GameClass;
 import com.mygdx.game.actor.MovableArea;
 import com.mygdx.game.figure.MovableAreaVertex;
 import com.mygdx.game.figure.Point;
 import com.mygdx.game.figure.PolygonMoveArea;
+import com.mygdx.game.screen.GameScreen;
 
 public class MovableAreaGroup extends Table {
 
@@ -26,7 +26,7 @@ public class MovableAreaGroup extends Table {
             for (int j = 0; j < movableArea[0].length; j++) {
 
                 if (movableArea[i][j].isMovable()
-                        && GameClass.getTiledMapTileLayer()
+                        && GameScreen.getTiledMapTileLayer()
                                 .getCell(
                                         movableArea[(int)Math.floor(movableArea.length / 2)][(int)Math.floor(movableArea.length / 2)].getPoint().getX() / size - moveTiles + i,
                                         movableArea[(int)Math.floor(movableArea.length / 2)][(int)Math.floor(movableArea.length / 2)].getPoint().getY() / size - moveTiles + j) != null
